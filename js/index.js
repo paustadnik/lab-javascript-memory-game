@@ -42,8 +42,26 @@ window.addEventListener('load', (event) => {
   document.querySelector('#memory-board').innerHTML = html;
 
   // Bind the click event of each element to a function
-  document.querySelectorAll('.card').forEach((card) => {
+  const selectedCard = document.querySelectorAll('.card')
+  selectedCard.forEach((card) => {
     card.addEventListener('click', () => {
+      card.classList.toggle('turned')
+      memoryGame.pickedCards.push(card)
+
+      if (memoryGame.pickedCards.length === 2) {
+        if (memoryGame.checkIfPair(memoryGame.pickedCards[0], memoryGame.pickedCards[1])) {
+          card.classList.toggle('blocked')
+          memoryGame.pickedCards.splice(0)
+        }
+        else {
+          card.classList.remove('turned')
+          memoryGame.pickedCards.splice(0)
+        }
+      }
+      
+      
+      
+
       // TODO: write some code here
       console.log(`Card clicked: ${card}`);
     });
